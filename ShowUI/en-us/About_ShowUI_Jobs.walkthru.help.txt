@@ -1,0 +1,45 @@
+# Jobs are a feature of ShowUI that make it easy to run things in the background
+# ShowUI jobs are mostly like the jobs in regular PowerShell
+
+# Let's launch a few jobs and explore how
+$jobs = @() 
+$jobs += New-Label "look at all of the colors..." -AsJob
+foreach ($n in 1..5) {
+    $jobs += New-Rectangle -width 100 -height 100 -Fill {
+        [Windows.Media.Colors] | 
+            Get-Member -Static -MemberType Properties | 
+            Select-Object -ExpandProperty Name | 
+            Get-Random
+    } -asJob
+}
+
+# You can use the Stop-Job cmdlet to close out all of the windows running
+# ShowUI jobs.  Bye Bye Windows.
+$jobs | Stop-Job
+
+
+# You can also interact with the window.  To demonstrate this, let's go ahead 
+# and launch a simple details dialog
+$job = New-StackPanel -ControlName 'Get-PersonalInformation' -Columns 1 -Children {
+    New-Label "What is your first name?"
+    New-TextBox -Name Firstname
+    New-Label "What is your last name?"
+    New-TextBox -Name Lastname
+    New-Label "When were you born?"
+    Select-Date -Name Birthdate        
+} -asjob
+
+# It's possible to get the UI value out of the form while it's running
+$job | 
+    Update-WPFJob -Command { 
+        Get-UIValue -Ui $window.Content 
+    } 
+    
+# It's also possible to interact with the window
+$Job | 
+    Update-WPFJob -Command {
+        $window.Top = 0
+        $window.Left = 0
+    }
+    
+    

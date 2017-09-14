@@ -1,0 +1,7 @@
+# Show-CPU
+#.Video http://www.youtube.com/watch?v=TmpeeuL6wAY
+$null
+
+# Show-Clock
+#.Video http://www.youtube.com/watch?v=Hqn-b2HMgSM
+$null
