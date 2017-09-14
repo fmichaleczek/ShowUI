@@ -124,7 +124,7 @@ function Invoke-Background
             }
         }
         
-        Set-Property -inputObject $target.DataContext -property $eventParameters 
+        Set-WPFProperty -inputObject $target.DataContext -property $eventParameters 
 
         $target.DataContext.Parent = $target
         $target.DataContext.Command.Commands.Clear()

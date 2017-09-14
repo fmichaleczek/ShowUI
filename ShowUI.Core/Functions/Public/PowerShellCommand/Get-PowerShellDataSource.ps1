@@ -80,7 +80,7 @@ function Get-PowerShellDataSource {
             $null = $psBoundParameters.Remove('Parent')
         }
         $psBoundParameters.Script = $psBoundParameters.Script -as [string] 
-        Set-Property -property $psBoundParameters -inputObject $Object
+        Set-WPFProperty -property $psBoundParameters -inputObject $Object
         $Object
     }
    
